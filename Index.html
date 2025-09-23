@@ -1,19 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>getElementById Demo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civic Portal Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="main-header">
+    <div class="logo">Civic Connect</div>
+    <nav class="nav-bar">
+  <button id="headerUserLogin" class="nav-btn">User Login</button>
+  <button id="headerAdminLogin" class="nav-btn admin-btn">Admin Login</button>
+  <button id="themeToggleBtn" class="nav-btn theme-toggle-btn" title="Toggle Light/Dark Mode">🌙</button>
+    </nav>
+  </header>
+  <main class="main-content">
+    <section class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <h1 class="hero-heading">Make Your City Better – Report Civic Issues Easily</h1>
+        <p class="hero-subheading">Track complaints, get updates, and contribute to a cleaner, safer city.</p>
+        <div class="hero-cta">
+          <button class="hero-btn" id="reportIssueBtn">Report an Issue</button>
+          <button class="hero-btn secondary" id="learnMoreBtn">Learn More</button>
+        </div>
+      </div>
+    </section>
 
-  <p id="demo">This is the original text.</p>
+    <section class="features-section">
+      <h2 class="features-heading">Platform Highlights</h2>
+      <div class="features-cards">
+        <div class="feature-card">
+          <div class="feature-icon">&#128421;</div> <!-- Report: 🖹 -->
+          <h3 class="feature-title">Report an Issue</h3>
+          <p class="feature-desc">Submit complaints with details and photos for quick attention.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128269;</div> <!-- Track: 🔍 -->
+          <h3 class="feature-title">Track Your Complaint</h3>
+          <p class="feature-desc">Know the status of your complaint anytime, anywhere.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9889;</div> <!-- Resolve: ⚡ -->
+          <h3 class="feature-title">Resolve Faster</h3>
+          <p class="feature-desc">Admins ensure quick action and resolution for every issue.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128227;</div> <!-- Updates: 📣 -->
+          <h3 class="feature-title">Community Updates</h3>
+          <p class="feature-desc">Stay informed with the latest announcements and news.</p>
+        </div>
+      </div>
+    </section>
 
-  <button onclick="changeText()">Click Me</button>
-
-  <script>
-    function changeText() {
-      document.getElementById("demo").innerHTML = "The text has been changed!";
-    }
-  </script>
-
+    <section class="stats-section">
+      <h2 class="stats-heading">Quick Statistics</h2>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotalIssues">12,345</div>
+          <div class="stat-label">Total Issues Reported</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statResolved">10,876</div>
+          <div class="stat-label">Issues Resolved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statActiveUsers">2,340</div>
+          <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statAreas">58</div>
+          <div class="stat-label">Areas Covered</div>
+        </div>
+      </div>
+    </section>
+    <div id="overlay" class="overlay" style="display:none;">
+      <div class="login-card" id="userLoginCard" style="display:none;">
+        <h2 class="login-title">User Sign In</h2>
+        <form id="loginForm">
+          <input type="email" id="email" class="login-input" placeholder="Email" autocomplete="username">
+          <input type="password" id="password" class="login-input" placeholder="Password" autocomplete="current-password">
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="signup-link">Don't have an account? <a href="#" id="signupLink">Sign Up</a></div>
+      </div>
+      <div class="login-card" id="adminLoginCard" style="display:none;">
+        <h2 class="login-title">Admin Sign In</h2>
+        <form id="adminLoginForm">
+          <input type="text" id="adminId" class="login-input" placeholder="Admin ID" autocomplete="username">
+          <input type="password" id="adminPassword" class="login-input" placeholder="Password" autocomplete="current-password">
+          <button type="submit" class="login-btn admin-btn">Login</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+    <footer class="main-footer">
+      <div class="footer-content">
+        <div class="footer-contact">
+          <span>Contact: support@civicconnect.com</span> |
+          <span>Helpline: 1800-123-4567</span>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="footer-icon" title="Twitter">&#x1F426;</a>
+          <a href="#" class="footer-icon" title="Facebook">&#x1F464;</a>
+          <a href="#" class="footer-icon" title="Instagram">&#x1F33F;</a>
+        </div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Privacy Policy</a> |
+          <a href="#" class="footer-link">Terms of Service</a>
+        </div>
+        <div class="footer-copy">&copy; 2025 Civic Connect. All rights reserved.</div>
+      </div>
+    </footer>
 </body>
 </html>

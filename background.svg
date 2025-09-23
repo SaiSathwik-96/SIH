@@ -1,0 +1,50 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<radialGradient id="bgDarkRadial" cx="50%" cy="50%" r="80%" fx="50%" fy="50%">
+			<stop offset="0%" stop-color="#23272f" stop-opacity="0.95"/>
+			<stop offset="60%" stop-color="#181a20" stop-opacity="0.98"/>
+			<stop offset="100%" stop-color="#101217" stop-opacity="1"/>
+		</radialGradient>
+		<linearGradient id="darkGrid" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#6ab7ff"/>
+			<stop offset="100%" stop-color="#23272f"/>
+		</linearGradient>
+	</defs>
+	<rect width="1920" height="1080" fill="url(#bgDarkRadial)"/>
+	<!-- Subtle neon grid lines -->
+	<g opacity="0.13">
+		<path d="M0 200 L1920 200" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M0 400 L1920 400" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M0 600 L1920 600" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M0 800 L1920 800" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M400 0 L400 1080" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M800 0 L800 1080" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M1200 0 L1200 1080" stroke="url(#darkGrid)" stroke-width="6"/>
+		<path d="M1600 0 L1600 1080" stroke="url(#darkGrid)" stroke-width="6"/>
+	</g>
+</svg>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<radialGradient id="bgRadial" cx="50%" cy="50%" r="80%" fx="50%" fy="50%">
+				<stop offset="0%" stop-color="#e0f7fa" stop-opacity="0.9"/>
+				<stop offset="60%" stop-color="#b2ebf2" stop-opacity="0.7"/>
+				<stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+			</radialGradient>
+			<linearGradient id="softLine" x1="0" y1="0" x2="1" y2="1">
+				<stop offset="0%" stop-color="#81d4fa"/>
+				<stop offset="100%" stop-color="#fffde7"/>
+			</linearGradient>
+		</defs>
+		<rect width="1920" height="1080" fill="url(#bgRadial)"/>
+		<!-- Soft grid lines only -->
+		<g opacity="0.18">
+			<path d="M0 200 L1920 200" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M0 400 L1920 400" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M0 600 L1920 600" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M0 800 L1920 800" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M400 0 L400 1080" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M800 0 L800 1080" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M1200 0 L1200 1080" stroke="url(#softLine)" stroke-width="6"/>
+			<path d="M1600 0 L1600 1080" stroke="url(#softLine)" stroke-width="6"/>
+		</g>
+</svg>
