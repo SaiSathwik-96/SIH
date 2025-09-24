@@ -245,14 +245,15 @@ body.dark-mode {
 }
 /* Hero Section Styles */
 .hero-section {
-	width: 100%;
-	min-height: 340px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-	background: transparent;
-	margin-bottom: 32px;
+		width: 100%;
+		min-height: 100vh;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		background: transparent;
+		margin-bottom: 0;
 }
 .hero-bg {
 	position: absolute;

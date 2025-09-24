@@ -17,6 +17,23 @@ window.onload = function() {
 		adminLoginCard.style.display = 'flex';
 	};
 
+	// Redirect to admin.html on admin login
+	var adminLoginForm = document.getElementById('adminLoginForm');
+	if (adminLoginForm) {
+		adminLoginForm.onsubmit = function(e) {
+			e.preventDefault();
+			window.location.href = 'admin.html';
+		};
+	}
+
+	// Navigate to report.html when Report an Issue button is clicked
+	var reportIssueBtn = document.getElementById('reportIssueBtn');
+	if (reportIssueBtn) {
+		reportIssueBtn.onclick = function() {
+			window.location.href = 'report.html';
+		};
+	}
+
 	overlay.onclick = function(e) {
 		if (e.target === overlay) {
 			overlay.style.display = 'none';

@@ -1,0 +1,45 @@
+/* Admin Dashboard Specific Styles */
+.admin-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #f7fafd;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.10);
+  padding: 32px 28px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.admin-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 18px;
+}
+.complaints-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+}
+.complaints-table th, .complaints-table td {
+  border: 1px solid #b2ebf2;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 1rem;
+}
+.complaints-table th {
+  background: #eafaf6;
+  color: #1976d2;
+  font-weight: 600;
+}
+.complaints-table tr:nth-child(even) {
+  background: #fff;
+}
+.complaints-table tr:nth-child(odd) {
+  background: #f7fafd;
+}
+.complaint-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #b2ebf2;
+}

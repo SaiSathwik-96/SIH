@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report an Issue</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="report.css">
+</head>
+<body>
+  <header class="main-header">
+  <div class="logo" id="headerLogo" style="cursor:pointer;">Civic Connect</div>
+    <nav class="nav-bar">
+  <span id="headerUserName" class="nav-user-name" style="display:none;font-weight:600;font-size:1rem;margin-right:12px;padding:6px 18px;background:#6ab7ff;color:#23272f;border-radius:8px;box-shadow:0 2px 8px rgba(44,62,80,0.12);position:relative;z-index:2;"></span>
+  <button id="headerLogout" class="nav-btn" style="display:none;background:#e84118;color:#fff;">Logout</button>
+  <button id="headerUserLogin" class="nav-btn">User Login</button>
+  <button id="themeToggleBtn" class="nav-btn theme-toggle-btn" title="Toggle Light/Dark Mode">🌙</button>
+    </nav>
+  </header>
+  <div id="overlay" class="overlay" style="display:none;">
+    <div class="login-card" id="userLoginCard" style="display:none;">
+      <h2 class="login-title">User Sign In</h2>
+      <form id="loginForm">
+        <input type="email" id="email" class="login-input" placeholder="Email" autocomplete="username">
+        <input type="password" id="password" class="login-input" placeholder="Password" autocomplete="current-password">
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+      <div class="signup-link">Don't have an account? <a href="#" id="signupLink">Sign Up</a></div>
+    </div>
+    <div class="login-card" id="adminLoginCard" style="display:none;">
+      <h2 class="login-title">Admin Sign In</h2>
+      <form id="adminLoginForm">
+        <input type="text" id="adminId" class="login-input" placeholder="Admin ID" autocomplete="username">
+        <input type="password" id="adminPassword" class="login-input" placeholder="Password" autocomplete="current-password">
+        <button type="submit" class="login-btn admin-btn">Login</button>
+      </form>
+    </div>
+  </div>
+  <div class="report-container">
+    <h2 class="report-title">Report an Issue</h2>
+    <p class="report-desc">Upload an image and our AI will automatically categorize your complaint</p>
+    <form class="report-form">
+      <label class="report-label" for="reportImage">Upload Image *</label>
+      <div class="report-upload" id="reportUpload">
+        <input type="file" id="reportImage" accept="image/*" style="display:block; margin-bottom:10px;">
+        <img id="reportImgPreview" class="report-img-preview" style="display:none;">
+        <span id="reportImgName" class="report-img-name" style="display:none;"></span>
+        <span id="reportImgSize" class="report-img-size" style="display:none;"></span>
+        <button type="button" id="reportImgRemove" class="report-img-remove" style="display:none;">×</button>
+      </div>
+      <div class="report-category">
+        <span class="report-category-detected">✔ Select Category:</span>
+        <span class="report-category-tag"></span>
+          <select id="manualCategory" class="report-category-dropdown" style="margin-left:12px;padding:6px 12px;border-radius:6px;border:1px solid #b2ebf2;">
+            <option value="" selected disabled>Select Department</option>
+            <option value="Traffic Department">Traffic Department</option>
+            <option value="Electricity Department">Electricity Department</option>
+            <option value="Sanitation Department">Sanitation Department</option>
+            <option value="Water Department">Water Department</option>
+            <option value="Roads & Maintenance">Roads & Maintenance</option>
+            <option value="Parks & Recreation">Parks & Recreation</option>
+            <option value="Other">Other</option>
+          </select>
+      <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var overlay = document.getElementById('overlay');
+  var userLoginCard = document.getElementById('userLoginCard');
+  var adminLoginCard = document.getElementById('adminLoginCard');
+  if (overlay) {
+    overlay.onclick = function(e) {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+        userLoginCard.style.display = 'none';
+        adminLoginCard.style.display = 'none';
+      }
+    };
+  }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  var headerUserName = document.getElementById('headerUserName');
+  var headerLogout = document.getElementById('headerLogout');
+  var headerUserLogin = document.getElementById('headerUserLogin');
+  var storedName = localStorage.getItem('userName');
+  if (headerUserName && storedName) {
+    headerUserName.textContent = storedName;
+    headerUserName.style.display = 'inline-block';
+    headerLogout.style.display = 'inline-block';
+    headerUserLogin.style.display = 'none';
+  }
+  if (headerLogout) {
+    headerLogout.onclick = function() {
+      localStorage.removeItem('userName');
+      headerUserName.textContent = '';
+      headerUserName.style.display = 'none';
+      headerLogout.style.display = 'none';
+      if (headerUserLogin) headerUserLogin.style.display = 'inline-block';
+      window.location.href = 'Index.html';
+    };
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var logo = document.getElementById('headerLogo');
+  if (logo) {
+    logo.onclick = function() {
+      window.location.href = 'Index.html';
+    };
+  }
+});
+</script>
+          </select>
+      </div>
+      <label class="report-label">Description *</label>
+      <textarea class="report-input" rows="3" placeholder="Describe the issue..."></textarea>
+      <label class="report-label">Location *</label>
+      <div class="report-location">
+        <input class="report-input" value="Ramnaresh Colony, Ward 123 Hydernagar, Greater Hyderabad Municipal Corporation">
+        <button type="button" class="report-location-btn">📍</button>
+      </div>
+
+      <div class="report-tracking-option" style="margin:18px 0 10px 0;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1rem;">Do you want to receive tracking updates for this complaint?</span>
+        <button type="button" id="trackingYesBtn" style="padding:8px 22px;background:#1976d2;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">Yes</button>
+        <button type="button" id="trackingNoBtn" style="padding:8px 22px;background:#eee;color:#222;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">No</button>
+        <input type="hidden" id="receiveTracking" name="receiveTracking" value="yes">
+      </div>
+      <button type="submit" class="report-submit-btn">
+        <span>Submit Complaint</span>
+      </button>
+    </form>
+  </div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var yesBtn = document.getElementById('trackingYesBtn');
+  var noBtn = document.getElementById('trackingNoBtn');
+  var hiddenInput = document.getElementById('receiveTracking');
+
+  yesBtn.onclick = function() {
+    hiddenInput.value = 'yes';
+    yesBtn.style.background = '#1976d2';
+    yesBtn.style.color = '#fff';
+    noBtn.style.background = '#eee';
+    noBtn.style.color = '#222';
+    // Use the same logic as headerUserLogin button
+    var overlay = document.getElementById('overlay');
+    var userLoginCard = document.getElementById('userLoginCard');
+    var adminLoginCard = document.getElementById('adminLoginCard');
+    if (overlay && userLoginCard && adminLoginCard) {
+      overlay.style.display = 'flex';
+      userLoginCard.style.display = 'flex';
+      adminLoginCard.style.display = 'none';
+    }
+  };
+  noBtn.onclick = function() {
+    hiddenInput.value = 'no';
+    noBtn.style.background = '#1976d2';
+    noBtn.style.color = '#fff';
+    yesBtn.style.background = '#eee';
+    yesBtn.style.color = '#222';
+  };
+});
+document.addEventListener('DOMContentLoaded', function() {
+  var dropdown = document.getElementById('manualCategory');
+  var customInput = document.getElementById('customDepartment');
+  dropdown.addEventListener('change', function() {
+    if (dropdown.value === 'Other') {
+      customInput.style.display = 'inline-block';
+      customInput.focus();
+    } else {
+      customInput.style.display = 'none';
+      customInput.value = '';
+    }
+  });
+});
+</script>
+</html>

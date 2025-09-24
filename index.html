@@ -8,8 +8,10 @@
 </head>
 <body>
   <header class="main-header">
-    <div class="logo">Civic Connect</div>
+    <div class="logo" id="headerLogo" style="cursor:pointer;">Civic Connect</div>
     <nav class="nav-bar">
+  <span id="headerUserName" class="nav-user-name" style="display:none;font-weight:600;font-size:1rem;margin-right:12px;padding:6px 18px;background:#6ab7ff;color:#23272f;border-radius:8px;box-shadow:0 2px 8px rgba(44,62,80,0.12);position:relative;z-index:2;"></span>
+  <button id="headerLogout" class="nav-btn" style="display:none;background:#e84118;color:#fff;">Logout</button>
   <button id="headerUserLogin" class="nav-btn">User Login</button>
   <button id="headerAdminLogin" class="nav-btn admin-btn">Admin Login</button>
   <button id="themeToggleBtn" class="nav-btn theme-toggle-btn" title="Toggle Light/Dark Mode">🌙</button>
@@ -79,7 +81,7 @@
       <div class="login-card" id="userLoginCard" style="display:none;">
         <h2 class="login-title">User Sign In</h2>
         <form id="loginForm">
-          <input type="email" id="email" class="login-input" placeholder="Email" autocomplete="username">
+          <input type="email" id="email" class="login-input" placeholder="Email or Phone Number" autocomplete="username">
           <input type="password" id="password" class="login-input" placeholder="Password" autocomplete="current-password">
           <button type="submit" class="login-btn">Login</button>
         </form>
@@ -96,6 +98,51 @@
     </div>
   </main>
   <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var loginForm = document.getElementById('loginForm');
+  var headerUserName = document.getElementById('headerUserName');
+  var headerLogout = document.getElementById('headerLogout');
+  var overlay = document.getElementById('overlay');
+  var userLoginCard = document.getElementById('userLoginCard');
+  var headerUserLogin = document.getElementById('headerUserLogin');
+  var headerAdminLogin = document.getElementById('headerAdminLogin');
+  // Show user name and logout if logged in
+  var storedName = localStorage.getItem('userName');
+  if (headerUserName && storedName) {
+    headerUserName.textContent = storedName;
+    headerUserName.style.display = 'inline-block';
+    headerLogout.style.display = 'inline-block';
+    headerUserLogin.style.display = 'none';
+    if (headerAdminLogin) headerAdminLogin.style.display = 'none';
+  }
+  if (loginForm) {
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      var emailInput = document.getElementById('email');
+      var name = '';
+      if (emailInput && emailInput.value) {
+        // Use email or phone as name (for demo)
+        name = emailInput.value.split('@')[0];
+      }
+      if (name) {
+        localStorage.setItem('userName', name);
+        window.location.href = 'Index.html';
+      }
+    };
+  }
+  if (headerLogout) {
+    headerLogout.onclick = function() {
+      localStorage.removeItem('userName');
+      headerUserName.textContent = '';
+      headerUserName.style.display = 'none';
+      headerLogout.style.display = 'none';
+      if (headerUserLogin) headerUserLogin.style.display = 'inline-block';
+      if (headerAdminLogin) headerAdminLogin.style.display = 'inline-block';
+    };
+  }
+});
+</script>
     <footer class="main-footer">
       <div class="footer-content">
         <div class="footer-contact">
@@ -116,7 +163,3 @@
     </footer>
 </body>
 </html>
-
-
-
-
