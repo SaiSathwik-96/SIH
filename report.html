@@ -6,6 +6,61 @@
   <title>Report an Issue</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="report.css">
+    <style>
+      .divider-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 18px 0 10px 0;
+        gap: 8px;
+      }
+      .divider-line {
+        flex: 1;
+        height: 1px;
+        background: #e0e0e0;
+        margin: 0 4px;
+      }
+      .divider-or {
+        color: #888;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0 8px;
+        background: #fff;
+        z-index: 1;
+      }
+      .social-row {
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+      .social-btn {
+        background: #fff;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: box-shadow 0.2s, transform 0.2s;
+        cursor: pointer;
+        position: relative;
+      }
+      .social-btn:hover {
+        box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        transform: scale(1.08);
+      }
+      .social-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        padding: 4px;
+        background: #eee;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      }
+    </style>
 </head>
 <body>
   <header class="main-header">
@@ -26,6 +81,32 @@
         <button type="submit" class="login-btn">Login</button>
       </form>
       <div class="signup-link">Don't have an account? <a href="#" id="signupLink">Sign Up</a></div>
+    </div>
+    <div class="login-card" id="signupCard" style="display:none;max-width:370px;">
+      <h2 class="login-title">Sign Up</h2>
+      <form id="signupForm">
+        <select id="signupMethod" class="login-input" style="margin-bottom:12px;">
+          <option value="email">Email</option>
+          <option value="phone">Phone Number</option>
+        </select>
+        <input type="text" id="signupEmailPhone" class="login-input" placeholder="Email or Phone Number" autocomplete="username">
+        <input type="password" id="signupPassword" class="login-input" placeholder="Create Password" autocomplete="new-password">
+        <input type="password" id="signupConfirmPassword" class="login-input" placeholder="Confirm Password" autocomplete="new-password">
+        <button type="submit" class="login-btn">Sign Up</button>
+      </form>
+      <div class="divider-row">
+        <span class="divider-line"></span>
+        <span class="divider-or">or</span>
+        <span class="divider-line"></span>
+      </div>
+      <div class="social-row">
+        <button type="button" id="googleSignup" class="social-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="social-icon" style="background:#ea4335;">
+        </button>
+        <button type="button" id="microsoftSignup" class="social-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="social-icon" style="background:#00a4ef;">
+        </button>
+      </div>
     </div>
     <div class="login-card" id="adminLoginCard" style="display:none;">
       <h2 class="login-title">Admin Sign In</h2>
@@ -64,6 +145,80 @@
       <script src="script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Theme toggle logic
+  var themeToggleBtn = document.getElementById('themeToggleBtn');
+  var body = document.body;
+  // Apply saved theme on load
+  var savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-theme');
+    themeToggleBtn.textContent = '☀️';
+  } else {
+    body.classList.remove('dark-theme');
+    themeToggleBtn.textContent = '🌙';
+  }
+  if (themeToggleBtn) {
+    themeToggleBtn.onclick = function() {
+      if (body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.textContent = '🌙';
+      } else {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.textContent = '☀️';
+      }
+    };
+  }
+  var signupLink = document.getElementById('signupLink');
+  var signupCard = document.getElementById('signupCard');
+  var overlay = document.getElementById('overlay');
+  var userLoginCard = document.getElementById('userLoginCard');
+  if (signupLink && signupCard && overlay && userLoginCard) {
+    signupLink.onclick = function(e) {
+      e.preventDefault();
+      overlay.style.display = 'flex';
+      signupCard.style.display = 'flex';
+      userLoginCard.style.display = 'none';
+    };
+  }
+  // Close signup modal when overlay is clicked
+  if (overlay && signupCard) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        signupCard.style.display = 'none';
+      }
+    });
+  }
+  // You can add further logic for signupForm, Google/Microsoft signup as needed
+  var reportForm = document.querySelector('.report-form');
+  if (reportForm) {
+    reportForm.onsubmit = function(e) {
+      var receiveTracking = document.getElementById('receiveTracking');
+      var storedName = localStorage.getItem('userName');
+      if (receiveTracking && receiveTracking.value === 'yes' && !storedName) {
+        // Not logged in and wants tracking, show sign-in modal and message only on submit
+        e.preventDefault();
+        var overlay = document.getElementById('overlay');
+        var userLoginCard = document.getElementById('userLoginCard');
+        var adminLoginCard = document.getElementById('adminLoginCard');
+        if (overlay && userLoginCard && adminLoginCard) {
+          overlay.style.display = 'flex';
+          userLoginCard.style.display = 'flex';
+          adminLoginCard.style.display = 'none';
+        }
+        // Remove previous message if any
+        var oldMsg = document.getElementById('signinTrackMsg');
+        if (oldMsg) oldMsg.remove();
+        // Show message only now
+        var msg = document.createElement('div');
+        msg.id = 'signinTrackMsg';
+        msg.textContent = 'To track the process, please sign in.';
+        msg.style.cssText = 'color:#e84118;background:#fff3e0;padding:10px 18px;border-radius:8px;margin-bottom:12px;text-align:center;font-weight:600;box-shadow:0 2px 8px rgba(44,62,80,0.10);';
+        userLoginCard.insertBefore(msg, userLoginCard.firstChild);
+      }
+    };
+  }
   var overlay = document.getElementById('overlay');
   var userLoginCard = document.getElementById('userLoginCard');
   var adminLoginCard = document.getElementById('adminLoginCard');
@@ -122,8 +277,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <div class="report-tracking-option" style="margin:18px 0 10px 0;display:flex;align-items:center;gap:10px;">
         <span style="font-size:1rem;">Do you want to receive tracking updates for this complaint?</span>
-        <button type="button" id="trackingYesBtn" style="padding:8px 22px;background:#1976d2;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">Yes</button>
+  <button type="button" id="trackingYesBtn" style="padding:8px 22px;background:#eee;color:#222;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">Yes</button>
+<style>
+#trackingYesBtn:hover {
+  background: #bbdefb !important;
+  color: #1976d2 !important;
+}
+</style>
         <button type="button" id="trackingNoBtn" style="padding:8px 22px;background:#eee;color:#222;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">No</button>
+<style>
+#trackingYesBtn:hover {
+  background: #bbdefb !important;
+  color: #1976d2 !important;
+}
+#trackingNoBtn:hover {
+  background: #ffcdd2 !important;
+  color: #e84118 !important;
+}
+</style>
         <input type="hidden" id="receiveTracking" name="receiveTracking" value="yes">
       </div>
       <button type="submit" class="report-submit-btn">
@@ -144,15 +315,19 @@ document.addEventListener('DOMContentLoaded', function() {
     yesBtn.style.color = '#fff';
     noBtn.style.background = '#eee';
     noBtn.style.color = '#222';
-    // Use the same logic as headerUserLogin button
-    var overlay = document.getElementById('overlay');
-    var userLoginCard = document.getElementById('userLoginCard');
-    var adminLoginCard = document.getElementById('adminLoginCard');
-    if (overlay && userLoginCard && adminLoginCard) {
-      overlay.style.display = 'flex';
-      userLoginCard.style.display = 'flex';
-      adminLoginCard.style.display = 'none';
+    var storedName = localStorage.getItem('userName');
+    if (!storedName) {
+      // Not logged in, show sign-in modal
+      var overlay = document.getElementById('overlay');
+      var userLoginCard = document.getElementById('userLoginCard');
+      var adminLoginCard = document.getElementById('adminLoginCard');
+      if (overlay && userLoginCard && adminLoginCard) {
+        overlay.style.display = 'flex';
+        userLoginCard.style.display = 'flex';
+        adminLoginCard.style.display = 'none';
+      }
     }
+    // If logged in, do nothing extra (just leave as yes and proceed)
   };
   noBtn.onclick = function() {
     hiddenInput.value = 'no';
